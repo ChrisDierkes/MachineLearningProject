@@ -328,18 +328,36 @@ public class HandStrengthEvaluator {
 
 
 	public static void main(String[] args) throws Exception {
+		int NUMBER_OF_SIMS = 100;
+		if (args.length == 1) {
+			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
+		}
+		boolean randomlyGenerateBoards = true;
+		if (args.length == 5) {
+			randomlyGenerateBoards = false;
+			NUMBER_OF_SIMS = 1;
+		}
 		Random RANDOMGEN = new SecureRandom();
 		HandStrengthEvaluator temp = new HandStrengthEvaluator();
 
 		TypeOfHandEvaluation eval = new TypeOfHandEvaluation();
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < NUMBER_OF_SIMS; i++) {
 			ArrayList<Card> deck = eval.loadDeck();
 			Card[] board = new Card[5];
-			for (int j = 0; j < 5; j++) {
-				int number = RANDOMGEN.nextInt(deck.size());
-				board[j] = deck.get(number);
-				deck.remove(number);
-			} 
+			if (randomlyGenerateBoards) {
+				for (int j = 0; j < 5; j++) {
+					int number = RANDOMGEN.nextInt(deck.size());
+					board[j] = deck.get(number);
+					deck.remove(number);
+				} 
+			}
+			else {
+				board[0] = new Card(args[0]);
+				board[1] = new Card(args[1]);
+				board[2] = new Card(args[2]);
+				board[3] = new Card(args[3]);
+				board[4] = new Card(args[4]);
+			}
 			ArrayList<HandBoard> listOfHandBoards = temp.getHandBoardRanking(board);
 			ArrayList<Integer> buckets = new ArrayList<Integer>();
 			int counter = 0;

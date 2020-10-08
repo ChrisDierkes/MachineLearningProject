@@ -4,6 +4,9 @@ public class HandBoard implements Comparable<HandBoard> {
 	private Card[] board;
 
 	public HandBoard(Hand hand, Card[] board) {
+		if (hand.getCardOne().getRank() < hand.getCardTwo().getRank()) {
+			this.hand = new Hand(hand.getCardTwo(), hand.getCardOne());
+		}
 		this.hand = hand;
 		this.board = board;
 	}
