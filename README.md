@@ -25,3 +25,9 @@ To run with a specific board, run:
 java HandStrengthEvaulator RS RS RS RS RS, where R = rank, 2-9/T/J/Q/K/A, and S = Suit, c,s,d,h
 
 Anything but that specific format will bug.
+
+----
+
+The output format is:
+
+Hand Card One Suit, Hand Card Two Suit, Board Card One Suit, Board Card Two Suit, Board Card Three Suit, Board Card Four Suit, Board Card Five Suit, Hand Card One Rank, Hand Card Two Rank, Board Card One Rank, Board Card Two Rank, Board Card Three Rank, Board Card Four Rank, Board Card Five Rank, Percentile
