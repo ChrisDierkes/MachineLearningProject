@@ -6,8 +6,6 @@ How to Run:
 
 First compile, with: javac HandStrengthEvaulator.java
 
-3 
-
 To run with a set amount of boards, run:
 
 java HandStrengthEvaulator x, where x is the number of boards it will run. ~600/minute approximately. The program will output to the terminal, to run it to a file use:
