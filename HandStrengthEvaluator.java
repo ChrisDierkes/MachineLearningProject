@@ -331,14 +331,26 @@ public class HandStrengthEvaluator {
 		int NUMBER_OF_SIMS = 100;
 		int NUMBER_OF_HANDS = 20;
 		boolean inputHands = false;
+		boolean addSuitCounter = false;
 		if (args.length == 1) {
 			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
 		}
-		if (args.length == 2) {
+		else if (args.length == 2) {
+			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
+			if (args[1].equalsIgnoreCase("t")) {
+				addSuitCounter = true;
+			}
+
+		}
+		else if (args.length == 3) {
 			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
 			NUMBER_OF_HANDS = Integer.parseInt(args[1]);
 			inputHands = true;
+			if (args[1].equalsIgnoreCase("t")) {
+				addSuitCounter = true;
+			}
 		}
+
 		boolean randomlyGenerateBoards = true;
 		if (args.length == 5) {
 			randomlyGenerateBoards = false;
@@ -364,6 +376,10 @@ public class HandStrengthEvaluator {
 				board[2] = new Card(args[2]);
 				board[3] = new Card(args[3]);
 				board[4] = new Card(args[4]);
+			}
+			int[] numberOfSuits = new int[4];
+			for (int j = 0; j < 5; j++) {
+				numberOfSuits[board[j].getSuit() - 1]++;
 			}
 			ArrayList<HandBoard> listOfHandBoards = temp.getHandBoardRanking(board);
 			ArrayList<Integer> buckets = new ArrayList<Integer>();
@@ -411,7 +427,13 @@ public class HandStrengthEvaluator {
 						}
 						tot = tot / 2;
 						double doubleCreator = (double) tot / listOfHandBoards.size(); 
-						System.out.println(doubleCreator * 100);
+						if (addSuitCounter) {
+							System.out.println(doubleCreator * 100 + "," + numberOfSuits[0] + "," + numberOfSuits[1] + 
+												"," + numberOfSuits[2] + "," + numberOfSuits[3]);
+						}
+						else {
+							System.out.println(doubleCreator * 100);
+						}
 					}
 				}
 			}
@@ -445,7 +467,13 @@ public class HandStrengthEvaluator {
 					}
 					tot = tot / 2;
 					double doubleCreator = (double) tot / listOfHandBoards.size(); 
-					System.out.println(doubleCreator * 100);
+					if (addSuitCounter) {
+						System.out.println(doubleCreator * 100 + "," + numberOfSuits[0] + "," + numberOfSuits[1] + 
+												"," + numberOfSuits[2] + "," + numberOfSuits[3]);
+					}
+					else {
+						System.out.println(doubleCreator * 100);
+					}
 					bucketCounter = 0;
 				}
 			}
