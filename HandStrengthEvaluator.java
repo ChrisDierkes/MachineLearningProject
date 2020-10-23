@@ -330,25 +330,8 @@ public class HandStrengthEvaluator {
 	public static void main(String[] args) throws Exception {
 		int NUMBER_OF_SIMS = 100;
 		int NUMBER_OF_HANDS = 20;
-		boolean inputHands = false;
-		boolean addSuitCounter = false;
 		if (args.length == 1) {
 			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
-		}
-		else if (args.length == 2) {
-			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
-			if (args[1].equalsIgnoreCase("t")) {
-				addSuitCounter = true;
-			}
-
-		}
-		else if (args.length == 3) {
-			NUMBER_OF_SIMS = Integer.parseInt(args[0]);
-			NUMBER_OF_HANDS = Integer.parseInt(args[1]);
-			inputHands = true;
-			if (args[1].equalsIgnoreCase("t")) {
-				addSuitCounter = true;
-			}
 		}
 
 		boolean randomlyGenerateBoards = true;
@@ -397,67 +380,26 @@ public class HandStrengthEvaluator {
 			buckets.add(counter);
 			counter = 0;
 			int bucketCounter = 0;
-			if (!inputHands) {
-				for (int j = 0; j < listOfHandBoards.size(); j++) {
-					System.out.print(listOfHandBoards.get(j).getHand().getCardOne().getSuit() + "," + 
-									   listOfHandBoards.get(j).getHand().getCardTwo().getSuit() + "," + 
-									   listOfHandBoards.get(j).getBoard()[0].getSuit() + "," +
-									   listOfHandBoards.get(j).getBoard()[1].getSuit() + "," +
-									   listOfHandBoards.get(j).getBoard()[2].getSuit() + "," +
-									   listOfHandBoards.get(j).getBoard()[3].getSuit() + "," +
-									   listOfHandBoards.get(j).getBoard()[4].getSuit() + ",");
+			for (int j = 0; j < listOfHandBoards.size(); j++) {
+				System.out.print(listOfHandBoards.get(j).getHand().getCardOne().getSuit() + "," + 
+							     listOfHandBoards.get(j).getHand().getCardTwo().getSuit() + "," + 
+								 listOfHandBoards.get(j).getBoard()[0].getSuit() + "," +
+								 listOfHandBoards.get(j).getBoard()[1].getSuit() + "," +
+								 listOfHandBoards.get(j).getBoard()[2].getSuit() + "," +
+								 listOfHandBoards.get(j).getBoard()[3].getSuit() + "," +
+								 listOfHandBoards.get(j).getBoard()[4].getSuit() + ",");
 					System.out.print(listOfHandBoards.get(j).getHand().getCardOne().getRank() + "," + 
-									   listOfHandBoards.get(j).getHand().getCardTwo().getRank() + "," + 
-									   listOfHandBoards.get(j).getBoard()[0].getRank() + "," +
-									   listOfHandBoards.get(j).getBoard()[1].getRank() + "," +
-									   listOfHandBoards.get(j).getBoard()[2].getRank() + "," +
-									   listOfHandBoards.get(j).getBoard()[3].getRank() + "," +
-									   listOfHandBoards.get(j).getBoard()[4].getRank() + ",");
+									 listOfHandBoards.get(j).getHand().getCardTwo().getRank() + "," + 
+									 listOfHandBoards.get(j).getBoard()[0].getRank() + "," +
+									 listOfHandBoards.get(j).getBoard()[1].getRank() + "," +
+									 listOfHandBoards.get(j).getBoard()[2].getRank() + "," +
+									 listOfHandBoards.get(j).getBoard()[3].getRank() + "," +
+									 listOfHandBoards.get(j).getBoard()[4].getRank() + ",");
 
-					if (j >= buckets.get(bucketCounter)) {
-						bucketCounter++;
-					}
-					if (j < buckets.get(bucketCounter)) {
-						double tot = 0;
-						if (bucketCounter == 0) {
-							tot += buckets.get(bucketCounter);
-						}
-						else {
-							tot = buckets.get(bucketCounter - 1) + buckets.get(bucketCounter);
-						}
-						tot = tot / 2;
-						double doubleCreator = (double) tot / listOfHandBoards.size(); 
-						if (addSuitCounter) {
-							System.out.println(doubleCreator * 100 + "," + numberOfSuits[0] + "," + numberOfSuits[1] + 
-												"," + numberOfSuits[2] + "," + numberOfSuits[3]);
-						}
-						else {
-							System.out.println(doubleCreator * 100);
-						}
-					}
+				if (j >= buckets.get(bucketCounter)) {
+					bucketCounter++;
 				}
-			}
-			else {
-				Collections.shuffle(rangeOfNumbersOfBoard);
-				for (int j = 0; j < NUMBER_OF_HANDS; j++) {
-					int numberInList = rangeOfNumbersOfBoard.get(j);
-					System.out.print(listOfHandBoards.get(numberInList).getHand().getCardOne().getSuit() + "," + 
-									   listOfHandBoards.get(numberInList).getHand().getCardTwo().getSuit() + "," + 
-									   listOfHandBoards.get(numberInList).getBoard()[0].getSuit() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[1].getSuit() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[2].getSuit() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[3].getSuit() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[4].getSuit() + ",");
-					System.out.print(listOfHandBoards.get(numberInList).getHand().getCardOne().getRank() + "," + 
-									   listOfHandBoards.get(numberInList).getHand().getCardTwo().getRank() + "," + 
-									   listOfHandBoards.get(numberInList).getBoard()[0].getRank() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[1].getRank() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[2].getRank() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[3].getRank() + "," +
-									   listOfHandBoards.get(numberInList).getBoard()[4].getRank() + ",");
-					while (numberInList >= buckets.get(bucketCounter)) {
-						bucketCounter++;
-					}
+				if (j < buckets.get(bucketCounter)) {
 					double tot = 0;
 					if (bucketCounter == 0) {
 						tot += buckets.get(bucketCounter);
@@ -467,14 +409,7 @@ public class HandStrengthEvaluator {
 					}
 					tot = tot / 2;
 					double doubleCreator = (double) tot / listOfHandBoards.size(); 
-					if (addSuitCounter) {
-						System.out.println(doubleCreator * 100 + "," + numberOfSuits[0] + "," + numberOfSuits[1] + 
-												"," + numberOfSuits[2] + "," + numberOfSuits[3]);
-					}
-					else {
 						System.out.println(doubleCreator * 100);
-					}
-					bucketCounter = 0;
 				}
 			}
 		}
